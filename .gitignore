@@ -1,0 +1,85 @@
+# ==========================================
+# Global .gitignore for Vue (Vite) + Spring Boot (Maven)
+# ==========================================
+
+# ---------------------
+# Frontend (Node / Vue)
+# ---------------------
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+frontend/.DS_Store
+frontend/npm-debug.log*
+frontend/yarn-error.log
+frontend/pnpm-debug.log
+frontend/.vite/
+frontend/.cache/
+
+# Editor / IDE for frontend
+frontend/.vscode/
+
+# ---------------------
+# Backend (Maven / Spring Boot)
+# ---------------------
+# Build output
+backend/target/
+backend/*.jar
+backend/*.war
+
+# Maven wrapper (logs / caches)
+backend/.mvn/
+backend/mvnw*
+backend/mvnw.cmd
+
+# IDE / project files (backend or shared)
+backend/.idea/
+backend/*.iml
+backend/.classpath
+backend/.project
+backend/.settings/
+
+# Spring / runtime logs
+backend/*.log
+backend/logs/
+
+# Local env and secret files
+backend/.env
+backend/.env.local
+backend/.env.*.local
+
+# - application properties/yml
+backend/src/main/resources/application.*
+backend/src/test/resources/application-test.*
+
+#Plus tard
+#backend/src/main/resources/application-local.*
+#backend/src/main/resources/application-dev.*
+#backend/src/main/resources/application-secret.*
+
+
+# ---------------------
+# Common / OS / Editors
+# ---------------------
+# JetBrains (global)
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# macOS
+.DS_Store
+
+# Vim / swap files
+*.swp
+*.swo
+
+# Windows thumbnails
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Generic build / output
+build/
+out/
