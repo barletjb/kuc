@@ -1,10 +1,10 @@
-package com.example.backend.user.model;
+package com.example.backend.user.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @Data
 public class User {
 
