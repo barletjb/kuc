@@ -1,12 +1,14 @@
 import {createRouter, createWebHistory} from "vue-router";
 import HelloWorld from "../components/HelloWorld.vue";
 import Customer from "../components/customer/Customer.vue";
+import FormNewUser from "../components/user/FormNewUser.vue";
 
 
 
 const routes=[
     {path: '/hello', name : 'hello', component: HelloWorld},
-    {path: '/customer', name: 'customer', component: Customer}
+    {path: '/customer', name: 'customer', component: Customer},
+    {path: '/user/new', name: 'create-user', component: FormNewUser}
 ]
 
 export const router = createRouter({
