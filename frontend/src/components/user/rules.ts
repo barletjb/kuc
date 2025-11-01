@@ -29,3 +29,14 @@ export const userSchema = yup.object({
         .oneOf([yup.ref("password")], "Passwords must match"),
 
 });
+
+
+export const loginSchema = yup.object ( {
+    username: yup
+        .string()
+        .required('Username is required'),
+
+    password: yup
+        .string()
+        .required('Password is required')
+})
