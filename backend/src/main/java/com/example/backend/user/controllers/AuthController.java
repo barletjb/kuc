@@ -12,10 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +34,13 @@ public class AuthController {
         if(userRepository.findByUsername(user.getUsername()) != null) {
             return ResponseEntity.badRequest().body("Username is already in use");
         }
+
+        if (userRepository.findByEmail(user.getEmail()) != null) {
+            return ResponseEntity.badRequest().body("Email is already in use");
+        }
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole("ROLE_USER");
         return ResponseEntity.ok(userRepository.save(user));
     }
 
@@ -56,6 +59,28 @@ public class AuthController {
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }
+    }
+
+    @GetMapping("/oauth2/success")
+    public ResponseEntity<?> oauth2Success(Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("OAuth2 authentication failed");
+        }
+
+        String username = authentication.getName();
+        String token = jwtUtils.generateToken(username);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("token", token);
+        response.put("type", "Bearer");
+        response.put("username", username);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/oauth2/failure")
+    public ResponseEntity<?> oauth2Failure() {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("OAuth2 login failed");
     }
 
 }

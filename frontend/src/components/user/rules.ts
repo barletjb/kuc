@@ -1,26 +1,31 @@
 import * as yup from 'yup'
 
 export const userSchema = yup.object({
+    sexe: yup
+        .string()
+        .required('Sexe is required'),
+
     username: yup
         .string()
-        .required("Le nom d'utilisateur est obligatoire")
-        .min(3, "Le nom d'utilisateur doit faire au moins 3 caractères"),
+        .required("User Name is required")
+        .min(3, "user name must be at least 3 characters"),
 
     email: yup
         .string()
-        .required("L'email est obligatoire")
-        .email("L'email n'est pas valide"),
+        .required("Email is required")
+        .email("Email is invalid"),
 
     password: yup
         .string()
-        .required("Le mot de passe est obligatoire")
+        .required("Password is required")
         .matches(
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-            "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial"
+            "Password must be at least 6 characters, 1 Maj, 1 Min, 1 number & 1 special character"
         ),
 
     confirmPassword: yup
         .string()
-        .required("Veuillez confirmer votre mot de passe")
-        .oneOf([yup.ref("password")], "Les mots de passe ne correspondent pas"),
+        .required("Confirm Password is required")
+        .oneOf([yup.ref("password")], "Passwords must match"),
+
 });

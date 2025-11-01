@@ -50,7 +50,6 @@ backend/.env.local
 backend/.env.*.local
 
 # - application properties/yml
-backend/src/main/resources/application.*
 backend/src/test/resources/application-test.*
 
 #Plus tard
