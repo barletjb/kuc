@@ -94,6 +94,7 @@ const onSubmit = async (values: unknown) => {
   }
 }
 
+//TODO: FIX THAT
 const loginWithGitHub = () => {
   window.location.href = 'http://localhost:8080/oauth2/authorization/github'
 }
