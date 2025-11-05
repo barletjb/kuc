@@ -61,23 +61,6 @@ public class AuthController {
         }
     }
 
-    @GetMapping("/oauth2/success")
-    public ResponseEntity<?> oauth2Success(Authentication authentication) {
-        if (authentication == null || !authentication.isAuthenticated()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("OAuth2 authentication failed");
-        }
-
-        String username = authentication.getName();
-        String token = jwtUtils.generateToken(username);
-
-        Map<String, Object> response = new HashMap<>();
-        response.put("token", token);
-        response.put("type", "Bearer");
-        response.put("username", username);
-
-        return ResponseEntity.ok(response);
-    }
-
     @GetMapping("/oauth2/failure")
     public ResponseEntity<?> oauth2Failure() {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("OAuth2 login failed");

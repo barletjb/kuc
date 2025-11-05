@@ -5,6 +5,7 @@ export interface NewUser {
     email: string
     password: string
     confirmPassword: string
+    role: 'user' | 'admin'
 }
 
 export interface LoginUser {

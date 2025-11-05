@@ -75,9 +75,9 @@
 <script setup lang="ts">
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import { loginSchema } from "./rules.ts";
-import type { LoginUser } from './types.ts'
-import { api } from '../../lib/api.ts'
-import { router } from '../../lib/router.ts'
+import type { LoginUser } from '../../types/user.ts'
+import { api } from '../../services/api.ts'
+import { router } from '../../services/router.ts'
 import { ref } from 'vue'
 
 const showPassword = ref(false)
@@ -96,6 +96,6 @@ const onSubmit = async (values: unknown) => {
 
 //TODO: FIX THAT
 const loginWithGitHub = () => {
-  window.location.href = 'http://localhost:8080/oauth2/authorization/github'
+  window.location.href = '/oauth2/authorization/github'
 }
 </script>

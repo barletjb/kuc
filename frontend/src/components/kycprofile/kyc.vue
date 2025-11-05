@@ -18,11 +18,11 @@
           </button>
         </form>
       </div>
-      <RouterLink
-          to="/create"
-          class="inline-flex items-center rounded-lg bg-violet-700 px-3 py-2 text-sm font-medium text-white hover:bg-violet-800">
-        Ajouter un client
-      </RouterLink>
+<!--      <RouterLink-->
+<!--          :to=""-->
+<!--          class="inline-flex items-center rounded-lg bg-violet-700 px-3 py-2 text-sm font-medium text-white hover:bg-violet-800">-->
+<!--        Add Customer-->
+<!--      </RouterLink>-->
     </div>
 
     <div class="overflow-hidden rounded-xl border border-violet-200/70 bg-white shadow-sm">
@@ -30,24 +30,17 @@
         <thead class="bg-violet-50/50">
         <tr class="text-left text-sm text-slate-600">
           <th class="px-4 py-3">Nom</th>
-          <th class="px-4 py-3">Entreprise</th>
+          <th class="px-4 py-3">Company</th>
           <th class="px-4 py-3">Email</th>
-          <th class="px-4 py-3">Documents</th>
+          <th class="px-4 py-3">Customer ID</th>
+          <th class="px-4 py-3">Client Contract</th>
+          <th class="px-4 py-3">Police</th>
           <th class="px-4 py-3">Status</th>
 
         </tr>
         </thead>
         <tbody class="divide-y divide-violet-100">
         <tr v-for="c in mockClients" :key="c.id" class="text-sm">
-<!--          <td class="px-4 py-3">-->
-<!--            <RouterLink-->
-<!--                :to="{ name: 'client-missions', params: { id: c.id } }"-->
-<!--                class="hover:underline text-violet-700"-->
-<!--                :title="`Voir les missions de ${c.name}`"-->
-<!--            >-->
-<!--              {{ c.name }}-->
-<!--            </RouterLink>-->
-<!--          </td>-->
           <td class="px-4 py-3 text-slate-700">{{ c.name }}</td>
           <td class="px-4 py-3 text-slate-700">{{ c.company }}</td>
           <td class="px-4 py-3 text-slate-700">{{ c.email }}</td>
@@ -125,7 +118,6 @@
 
 <script setup lang="ts">
 import {ref} from 'vue'
-import {RouterLink} from 'vue-router'
 
 type Status = 'open' | 'closed'
 

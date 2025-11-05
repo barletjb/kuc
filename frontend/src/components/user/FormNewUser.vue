@@ -122,9 +122,9 @@
 
 import {Form, Field, ErrorMessage} from "vee-validate";
 import {userSchema} from "./rules.ts";
-import type {NewUser} from "./types.ts";
-import {api} from "../../lib/api.ts";
-import {router} from "../../lib/router.ts";
+import type {NewUser} from "../../types/user.ts";
+import {api} from "../../services/api.ts";
+import {router} from "../../services/router.ts";
 import {ref} from "vue";
 
 const showPassword = ref(false)

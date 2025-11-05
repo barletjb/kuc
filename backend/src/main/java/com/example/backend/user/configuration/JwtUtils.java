@@ -3,6 +3,7 @@ package com.example.backend.user.configuration;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -24,6 +25,9 @@ public class JwtUtils {
     @Value("${app.expiration-time}")
     private Long expirationTime;
 
+    private Key getSignKey() {
+        return Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
+    }
 
     public String generateToken(String username) {
         Map<String, Object> claims = new HashMap<>();
@@ -40,10 +44,6 @@ public class JwtUtils {
                 .compact();
     }
 
-    private Key getSignKey() {
-        byte[] keyBytes = secretKey.getBytes();
-        return new SecretKeySpec(keyBytes, SignatureAlgorithm.HS256.getJcaName());
-    }
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject); // Equivalent à claims -> claims.getSubject(): “prends la méthode getSubject() de la classe Claims et passe-la comme fonction”.
@@ -56,7 +56,7 @@ public class JwtUtils {
 
     private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()//lit le token (la chaîne de texte) et te donne un objet Claims.
-                .setSigningKey(secretKey)//Indique la clé secrète que ton serveur a utilisée pour signer le token.
+                .setSigningKey(getSignKey())//Indique la clé secrète que ton serveur a utilisée pour signer le token.
                 .build()//“finalise” la configuration du parser.
                 .parseClaimsJws(token)//lire et décoder le token
                 .getBody();//récupère juste le payload (les Claims) à l’intérieur du token.
