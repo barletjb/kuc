@@ -27,26 +27,28 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 
         OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();
-
         OAuth2User oAuth2User = delegate.loadUser(userRequest);
 
         Map<String, Object> attributes = oAuth2User.getAttributes();
         String login = (String) attributes.getOrDefault("login", "gh_user_" + attributes.get("id"));
         String email = (String) attributes.get("email");
 
+        if (email == null) {
+            email = login + "@users.noreply.github.com"; // fallback
+        }
+
         User existingUser = userRepository.findByEmail(email);
+
         if (existingUser == null) {
             User user = new User();
             user.setUsername(login);
-            user.setEmail(email != null ? email : (login + "@users.noreply.github.com"));
+            user.setEmail(email);
             user.setPassword("{noop}");
             user.setRole("ROLE_USER");
             userRepository.save(user);
         }
 
-        Collection<GrantedAuthority> authorities =
-                List.of(new SimpleGrantedAuthority("ROLE_USER"));
-
-        return new DefaultOAuth2User(authorities, attributes ,"login");
+        Collection<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        return new DefaultOAuth2User(authorities, attributes, "login");
     }
 }

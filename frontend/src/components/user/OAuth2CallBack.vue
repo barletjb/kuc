@@ -13,6 +13,7 @@ const router = useRouter()
 
 onMounted(async () => {
   const token = route.query.token as string | undefined
+  console.log('Token reçu du backend:', token)
 
   if (token) {
     localStorage.setItem('token', token)

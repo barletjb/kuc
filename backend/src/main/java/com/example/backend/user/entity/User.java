@@ -13,7 +13,10 @@ public class User {
     private Long id;
     private String sexe;
     private String username;
+
+    @Column(nullable = false, unique = true)
     private String email;
+
     private String password;
     private String role = "ROLE_USER";
 
